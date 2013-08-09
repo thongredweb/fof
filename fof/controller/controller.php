@@ -2105,6 +2105,16 @@ class FOFController extends JObject
 			return false;
 		}
 
+		// Set the layout to form, if it's not set in the URL
+
+		if (is_null($this->layout))
+		{
+			$this->layout = 'form';
+		}
+
+		// Do I have a form?
+		$model->setState('form_name', 'form.' . $this->layout);
+
 		$status = $model->save($data);
 
 		if ($status && ($id != 0))
