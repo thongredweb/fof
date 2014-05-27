@@ -152,7 +152,14 @@ class AkeebaStrapper
             return;
 		}
 
+		// Load jQuery only once
+		if (self::$_includedJQuery)
+		{
+			return;
+		}
+
 		$jQueryLoad = self::getPreference('jquery_load', 'auto');
+
 		if (!in_array($jQueryLoad, array('auto', 'full', 'namespace', 'none')))
 		{
 			$jQueryLoad = 'auto';
@@ -214,14 +221,18 @@ class AkeebaStrapper
             return;
 		}
 
-        if (!self::$_includedJQuery)
-        {
-            self::jQuery();
-        }
+		// Load only once
+		if (self::$_includedJQueryUI)
+		{
+			return;
+		}
+
+		self::jQuery();
 
         self::$_includedJQueryUI = true;
 
 		$jQueryUILoad = self::getPreference('jqueryui_load', 1);
+
 		if (!$jQueryUILoad)
 		{
 			return;

@@ -1,14 +1,11 @@
 NOTES FOR TINKERS
 ============================================================================
-Last update: November 17th, 2012 w/ Bootstrap 2.2.1
-
+Last update: May 18th, 2014 w/ Bootstrap 2.3.2
 
 When importing a new Bootstrap release you have to:
+• Build all LESS files in the strapper/akeeba_strapper/less directory
+• Copy and rename the generated CSS files in the strapper/akeeba_strapper/css directory. Hint: look at the headers.
+• Update the strapper/akeeba_strapper/img directory with the new Bootstrap assets
+• Update the strapper/akeeba_strapper/js directory with the new Bootstrap bootstrap.min.js file
 
-• Rename bootstrap.css to bootstrap.less and add this at the top:
-     .akeeba-bootstrap {
-  and this at the bottom of the file:
-     }
-  then compile it with a LESS compiler such as SimpLESS
-
-• Remove all .modal definitions; that conflict with Joomla!
+IMPORTANT! To ensure compatibility with Joomla! 3 we cannot upgrade to Bootstrap 3 or later

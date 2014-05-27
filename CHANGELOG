@@ -1,7 +1,13 @@
 FOF 2.3.1
 ================================================================================
+! CLI scripts were not being copied over
++ Tooltip support for F0FForm fieldsets
++ source_format="optionsobject" support for F0FFormFieldList
 ~ Compatibility with braindead admin templates which FORCE format=utf (the heck...?) in the URL
 ~ Allow F0FModel::getForm to load multiple forms by passing it a different $source parameter
+~ Refactored F0F renderers
+~ Only show ordering input fields and save button when rows are ordered by ordering (Joomla! 3)
+~ gh-356 Akeeba Strapper: Make sure jQuery and jQuery UI are only loaded once
 
 FOF 2.3.0
 ================================================================================
