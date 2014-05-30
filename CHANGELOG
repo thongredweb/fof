@@ -9,6 +9,7 @@ FOF 2.3.1
 ~ Only show ordering input fields and save button when rows are ordered by ordering (Joomla! 3)
 ~ gh-356 Akeeba Strapper: Make sure jQuery and jQuery UI are only loaded once
 ~ gh-358 Akeeba Strapper: Make sure Bootstrap is only loaded once
+~ Use the custom bootstrap.min.js 2.3.2 version of Joomla! 3.3.0 core
 # [MEDIUM] gh-358 Akeeba Strapper: bootstrap.min.js was loaded when it has already been included (Joomla! 3 and Joomla! 2.5 when preload_joomla2=0)
 
 FOF 2.3.0

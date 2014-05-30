@@ -55,7 +55,7 @@ class F0FFormFieldOrdering extends JFormField implements F0FFormField
 					$this->repeatable = $this->getRepeatable();
 				}
 
-				return $this->static;
+				return $this->repeatable;
 				break;
 
 			default:

@@ -1655,16 +1655,16 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'onAfter'  => array(
                     'form'    => clone $form,
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'form'     => clone $form
@@ -1690,16 +1690,16 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.fromrequest',
                     'source'  => 'form.fromrequest',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.fromrequest',
                     'source'  => 'form.fromrequest',
                     'options' => array('control' => false, 'load_data' => true)),
                 'onAfter'  => array(
                     'form'    => clone $form,
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.fromrequest',
                     'source'  => 'form.fromrequest',
                     'options' => array('control' => false, 'load_data' => true)),
                 'form'     => clone $form
@@ -1725,16 +1725,16 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'onAfter'  => array(
                     'form'    => clone $form,
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'form'     => clone $form
@@ -1760,16 +1760,16 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'onAfter'  => array(
                     'form'    => false,
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'form'     => false
@@ -1798,7 +1798,7 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
@@ -1837,7 +1837,7 @@ abstract class ModelDataprovider
             ),
             array(
                 'onBefore' => array(
-                    'name'    => 'com_foftest.foobars',
+                    'name'    => 'com_foftest.foobars.form.foobars',
                     'source'  => 'form.foobars',
                     'options' => array('control' => false, 'load_data' => true)),
                 'loadForm' => array(
