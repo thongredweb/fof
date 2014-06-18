@@ -15,7 +15,7 @@ defined('F0F_INCLUDED') or die;
 /**
  * Database iterator
  */
-    abstract class F0FDatabaseIterator implements Countable, Iterator
+abstract class F0FDatabaseIterator implements Countable, Iterator
 {
 	/**
 	 * The database cursor.

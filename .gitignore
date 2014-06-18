@@ -37,4 +37,7 @@ antconfig.txt
 /build/phingext
 /build/tools
 /build/buildlang
+/build/templates/release*
 
+DESCRIPTION.html
+RELEASENOTES.html

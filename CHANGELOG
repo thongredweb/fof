@@ -1,3 +1,9 @@
+FOF 2.3.2
+================================================================================
++ F0FUtilsUpdate will refresh the update site if Joomla!, in its infinite stupidity, has disabled it without notifying the user and without giving them a way to re-enable it.
+# [MEDIUM] F0FTemplateUtils does not convert .min.css/.min.js to .css/.js when calculating debug paths
+# [LOW] F0FFormFieldCalendar not showing up in "read" task
+
 FOF 2.3.1
 ================================================================================
 ! CLI scripts were not being copied over
@@ -7,11 +13,14 @@ FOF 2.3.1
 ~ Allow F0FModel::getForm to load multiple forms by passing it a different $source parameter
 ~ Refactored F0F renderers
 ~ Only show ordering input fields and save button when rows are ordered by ordering (Joomla! 3)
+# [MEDIUM] F0FEncryptTotp::checkCode was broken
+
+--- Changes in Akeeba Strapper (optional package, not an integral part of FOF) ---
 ~ gh-356 Akeeba Strapper: Make sure jQuery and jQuery UI are only loaded once
 ~ gh-358 Akeeba Strapper: Make sure Bootstrap is only loaded once
 ~ Use the custom bootstrap.min.js 2.3.2 version of Joomla! 3.3.0 core
 # [MEDIUM] gh-358 Akeeba Strapper: bootstrap.min.js was loaded when it has already been included (Joomla! 3 and Joomla! 2.5 when preload_joomla2=0)
-# [MEDIUM] F0FEncryptTotp::checkCode was broken
+
 
 FOF 2.3.0
 ================================================================================
