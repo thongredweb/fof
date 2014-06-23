@@ -29,6 +29,29 @@ class F0FTableTest extends FtestCaseDatabase
         F0FTable::forceInstance(null);
     }
 
+	public function testGetClone()
+	{
+		$config['input'] = new F0FInput(array('option' => 'com_foftest', 'view' => 'foobar'));
+		$table = F0FTable::getAnInstance('Foobar', 'FoftestTable', $config);
+		$table->load(1);
+		$this->assertEquals('Guinea Pig row', $table->title);
+
+		$clone = $table->getClone();
+		$this->assertEquals('Guinea Pig row', $table->title);
+		$this->assertEmpty($clone->title);
+
+		$table->load(2);
+		$this->assertEquals('Second row', $table->title);
+		$this->assertEmpty($clone->title);
+
+		$clone->title = 'Foobar';
+		$this->assertNotEquals('Foobar', $table->title);
+
+		$table->load(1);
+		$clone->load(2);
+		$this->assertNotEquals($clone->title, $table->title);
+	}
+
 	/**
 	 * @covers              F0FTable::setKnownFields
 	 * @group               F0FTable
