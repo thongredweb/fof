@@ -9,7 +9,7 @@
 defined('F0F_INCLUDED') or die;
 
 /**
- * FrameworkOnFramework Model class. The Model is the worhorse. It performs all
+ * FrameworkOnFramework Model class. The Model is the workhorse. It performs all
  * of the business logic based on its state and then returns the raw (processed)
  * data to the caller, or modifies its own state. It's important to note that
  * the model doesn't get data directly from the request (this is the
@@ -422,7 +422,7 @@ class F0FModel extends F0FUtilsObject
 			$config = array();
 		}
 
-		if (!array_key_exists('savesate', $config))
+		if (!array_key_exists('savestate', $config))
 		{
 			$config['savestate'] = false;
 		}

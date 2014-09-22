@@ -1,8 +1,30 @@
+FOF 2.3.5
+================================================================================
++ Installation script: add support for post-installation messages in Joomla! 3.2 or later
+# [HIGH] Joomla! doesn't understand Itemid sent as a POST query parameter, causing front-end FOFForm to effectively post to the home menu item
+# [LOW] gh-390 If Joomla SEF URL is enabled, but they are not rewritten, you could have unexpected results (404 errors, redirection issues etc etc)
+
+FOF 2.3.4
+================================================================================
++ Cache cleaner utility class to help you clean Joomla!'s cache
+~ Installation script: work around Joomla!'s bad use of caching regarding modules and plugins
+
+FOF 2.3.3
+================================================================================
+~ Installation script: work around Joomla! not creating menu entries under Components on some sites (mostly those upgraded with jUpgrade)
+
 FOF 2.3.2
 ================================================================================
 + F0FUtilsUpdate will refresh the update site if Joomla!, in its infinite stupidity, has disabled it without notifying the user and without giving them a way to re-enable it.
 # [MEDIUM] F0FTemplateUtils does not convert .min.css/.min.js to .css/.js when calculating debug paths
+# [MEDIUM] F0FDatabaseIterator didn't clone the table object
+# [MEDIUM] After adding/moving a subtree, load again the node in order to update lft and rgt values
+# [MEDIUM] Insert node methods weren't copying an existing node
+# [MEDIUM] F0FTableNested::insertLeftOf was updating the sibling object node incorrectly
+# [MEDIUM] F0FTableNested::insertLeftOf/insertRightOf was not committing the transaction
+# [MEDIUM] F0FTableNested Always check to deal with a loaded node
 # [LOW] F0FFormFieldCalendar not showing up in "read" task
+# [LOW] Cache wasn't used under some circumstances in F0FInflector
 
 FOF 2.3.1
 ================================================================================

@@ -115,7 +115,7 @@ abstract class F0FDatabaseIterator implements Countable, Iterator
             throw new InvalidArgumentException('Invalid table name, expected a pattern like ComponentTableFoobar got '.$class);
         }
 
-		$this->_tableObject = F0FTable::getInstance($parts[2], ucfirst($parts[0]) . ucfirst($parts[1]));
+		$this->_tableObject = F0FTable::getInstance($parts[2], ucfirst($parts[0]) . ucfirst($parts[1]))->getClone();
 
 		$this->cursor   = $cursor;
 		$this->class    = 'stdClass';

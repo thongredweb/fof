@@ -100,4 +100,6 @@ JLoader::import('joomla.filesystem.path');
 
 // Load FOF's autoloader
 jimport('joomla.application.input');
+require_once JPATH_TESTS.'/unit/core/reflection/reflection.php';
+require_once JPATH_TESTS.'/unit/core/closure/closure.php';
 require_once __DIR__ . '/../../fof/include.php';

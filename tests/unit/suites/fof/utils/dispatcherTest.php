@@ -8,7 +8,6 @@
  */
 
 require_once __DIR__ . '/eventInspector.php';
-require_once JPATH_TESTS.'/unit/core/reflection/reflection.php';
 
 class F0FUtilsObservableDispatcherTest extends FtestCase
 {

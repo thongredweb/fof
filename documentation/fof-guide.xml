@@ -711,47 +711,6 @@ function postflight($type, $parent)
       <para>You can override defaults without copying &amp; pasting code,
       ever. This is documented in Configuring MVC.</para>
 
-      <bridgehead>Model behaviours</bridgehead>
-
-      <para>Models can implement complex, reusable functionality using
-      behaviours. Behaviours use the Observable pattern to "hook" into the
-      onBefore*/onAfter* methods of the Model object to implement a feature,
-      e.g. automatic application of filters based on input parameters. The
-      bundled behaviour classes are currently located inside FOF's
-      <filename>model/behavior</filename> directory. By default, only the
-      <filename>filters</filename> behaviour is being loaded. You can add /
-      modify behaviours in different ways:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>By overriding the model's __construct method and using the
-          addBehavior() method</para>
-        </listitem>
-
-        <listitem>
-          <para>With the $config or fof.xml configuration overrides, using the
-          behaviors option key</para>
-        </listitem>
-      </itemizedlist>
-
-      <para>Please note that in both cases you are providing the last part of
-      the behaviour's name. FOF will look for a view-specific behaviour class
-      and if it doesn't it will try falling back to its default implementation
-      of the behaviour.</para>
-
-      <para>The convention for naming the view-specific model behaviour
-      classes is <classname>ComponentModelViewBehaviorName</classname>, e.g.
-      <classname>TodoModelItemsBehaviorFilter</classname> for a component
-      named <code>com_todo</code>, a view named <code>items</code> and a
-      behaviour called <code>filters</code>. The View part MUST be
-      plural.</para>
-
-      <para>If the view-specific model behaviour class is not found, FOF will
-      fall back to <classname>F0FModelBehaviorName</classname>, e.g.
-      <classname>F0FModelBehaviorFilter</classname> if you are using the
-      "filters" behaviour name. The built-in behaviours are discussed further
-      down in the Built-in Behaviours section.</para>
-
       <bridgehead>Customising a specialised class</bridgehead>
 
       <para>Unlike plain old Joomla! you are NOT supposed to copy and paste
@@ -855,10 +814,12 @@ function postflight($type, $parent)
         <section xml:id="fofmodel-behaviours-intro">
           <title>Introduction</title>
 
-          <para>Model Behaviors are a handy way to alter the workflow of a
-          F0FModel. It's based upon the standard Joomla Event system.</para>
+          <para>Models can implement complex, reusable functionality using
+          behaviours. Model Behaviors are a handy way to alter the workflow of
+          a F0FModel. It's based upon the standard Joomla Event system.</para>
 
-          <para>Before and After certain actions, the model triggers an
+          <para>Before and After certain actions (<classname>onBefore*</classname>
+          / <classname>onAfter*</classname>) the model triggers an
           "event" which is propagated to each of the registered behaviors for
           that model. They can then, by registering to these events, alter the
           way the action itself is performed.</para>
@@ -868,7 +829,10 @@ function postflight($type, $parent)
           created.</para>
 
           <para>FOF already provides a list of common behaviors, that can be
-          used by any F0FModel object.</para>
+          used by any F0FModel object. The bundled behaviour classes are currently
+          located inside FOF's <filename>model/behavior</filename> directory.
+          By default, only the <filename>filters</filename> behaviour is being
+          loaded.</para>
         </section>
 
         <section xml:id="fofmodel-behaviours-standard">
@@ -889,10 +853,12 @@ function postflight($type, $parent)
             to.</para>
 
             <important>
-              <para>This behaviour REQUIRES the "filters" behaviour. If you
-              have not added the "filters" behaviour it will not have any
+              <para>This behaviour REQUIRES the <code>filters</code> behaviour.
+              If you have not added the "filters" behaviour it will not have any
               effect on browse views. It will, however, work on edit and read
               views.</para>
+
+              <para>This behaviour requires the <code>access</code> magic field.</para>
             </important>
           </section>
 
@@ -902,6 +868,10 @@ function postflight($type, $parent)
             <para>Adding this behaviour to a model object filters the
             front-end output to only items which are published
             (enabled=1).</para>
+
+            <important>
+              <para>This behaviour requires the <code>enabled</code> magic field.</para>
+            </important>
           </section>
 
           <section xml:id="fofmodel-behaviours-filters">
@@ -1297,6 +1267,10 @@ function postflight($type, $parent)
             language matches the currently enabled front-end language.
             Obviously this only has an effect on multi-lingual sites when the
             Joomla! language filter plugin is enabled.</para>
+
+            <important>
+              <para>This behaviour requires the <code>language</code> magic field.</para>
+            </important>
           </section>
 
           <section xml:id="fofmodel-behaviours-private">
@@ -1306,13 +1280,17 @@ function postflight($type, $parent)
             front-end output by the created_by user, showing only items that
             have been created by the currently logged in user. Items not
             created by the current user will not be displayed.</para>
+
+            <important>
+              <para>This behaviour requires the <code>created_by</code> magic field.</para>
+            </important>
           </section>
         </section>
 
         <section xml:id="fofmodel-behaviours-add">
           <title>Adding an Existing Behavior to a Model</title>
 
-          <para>There are 4 ways to add a behavior to a model:</para>
+          <para>There are 5 ways to add a behavior to a model:</para>
 
           <para>1. Using the <property>default_behaviors</property> property
           of the model. This property is an array of behavior names to load
@@ -1350,7 +1328,7 @@ function postflight($type, $parent)
     'behaviors' =&gt; array('filters', 'access', 'enabled'))
 );</programlisting>
 
-          <para>4. Adding it dinamically using the method
+          <para>4. Adding it dynamically using the method
           <methodname>addBehavior</methodname></para>
 
           <programlisting language="php">class FoobarModelTodos extends F0FModel {
@@ -1364,6 +1342,19 @@ function postflight($type, $parent)
     }
 
 }</programlisting>
+
+          <para>5. Adding it on the view inside <filename>fof.xml</filename></para>
+
+          <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fof&gt;
+    &lt;frontend&gt;
+        &lt;view name="todos"&gt;
+            &lt;config&gt;
+                &lt;option name="behaviors"&gt;filter,access,enabled&lt;/option&gt;
+            &lt;/config&gt;
+        &lt;/view&gt;
+    &lt;/frontend&gt;
+&lt;/fof&gt;</programlisting>
         </section>
 
         <section xml:id="fofmodel-behaviours-create-new">
@@ -1373,22 +1364,26 @@ function postflight($type, $parent)
           important how you name it, because FOF will search for your
           behaviors based on their name.</para>
 
-          <para>If you want to add a foobar behavior, FOF will search for it
-          in the following order:</para>
+          <para>If you want to add a <code>bar</code> behavior in a 
+          <code>foo</code> component, FOF will search for it in the following order:
+          </para>
 
           <orderedlist>
             <listitem>
-              <para>First look for ComponentnameModelViewnameBehaviorName (ie:
-              FoobarModelTodosFoobar)</para>
+              <para>First look for <classname>ComponentnameModelViewnameBehaviorName
+              </classname> (ie: <classname>FoobarModelTodosBar</classname>)</para>
+
+              <para>Caution, the <code>Viewname</code> part MUST be plural.</para>
             </listitem>
 
             <listitem>
-              <para>Then look for ComponentnameModelBehaviorName (ie:
-              FoobarModelFoobar)</para>
+              <para>Then look for <classname>ComponentnameModelBehaviorName
+              </classname> (ie: <classname>FoobarModelBar</classname>)</para>
             </listitem>
 
             <listitem>
-              <para>Then look for F0FModelBehaviorFoobar</para>
+              <para>Then look for <classname>F0FModelBehaviorBehaviorName</classname>
+              (ie: <classname>F0FModelBehaviorBar</classname>)</para>
             </listitem>
           </orderedlist>
 
@@ -1396,8 +1391,16 @@ function postflight($type, $parent)
           component-wide ones.</para>
 
           <para>It's also possible to override already existing behaviors, by
-          naming them correctly (ie: you can override the enabled behavior by
-          creating a new class called FoobarModelBehaviorEnabled).</para>
+          naming them correctly (ie: you can override the <code>enabled</code>
+          behavior by creating a new class called
+          <classname>FoobarModelBehaviorEnabled</classname>).</para>
+
+          <important>
+            <para>The behaviors are not automatically loaded, so you need
+            to provide your own autoloader or simply load the classes in the
+            constructor of your Model before calling <code>parent::__construct(…)</code>
+            .</para>
+          </important>
         </section>
 
         <section xml:id="fofmodel-behaviours-available">
@@ -1769,6 +1772,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
           <listitem>
             <para>The title of an item. It's used for creating a slug.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>slug</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1780,6 +1789,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             generated out of the title using a very basic transliteration
             algorithm.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>title</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1807,6 +1822,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The ID of the user who created the record. Handled
             automatically by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>created_on</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1816,6 +1837,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The date when the record was created. Handled automatically
             by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>created_by</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1825,6 +1852,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The ID of the user who last modified the record. Handled
             automatically by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>created_by</parameter>, <parameter>created_on</parameter>, <parameter>modified_on</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1834,6 +1867,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The date when the record was last modified. Handled
             automatically by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>created_by</parameter>, <parameter>created_on</parameter>, <parameter>modified_by</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1843,6 +1882,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The ID of the user who locked (checked out) the record for
             editing. Handled automatically by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>locked_on</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1852,6 +1897,12 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
             <para>The date when the record was locked (checked out) for
             editing. Handled automatically by FOF.</para>
           </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>required :
+              <parameter>locked_by</parameter></para>
+            </listitem>
+          </itemizedlist>
         </varlistentry>
 
         <varlistentry>
@@ -1860,6 +1911,15 @@ public function onAfterGetItem(&amp;$model, &amp;$record)
           <listitem>
             <para>How many read hits this record has received. Handled
             automatically by FOF.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>language</term>
+
+          <listitem>
+            <para>The language of the record if you want a multi-lingual
+            site.</para>
           </listitem>
         </varlistentry>
 
@@ -2240,10 +2300,12 @@ class FoobarTableFoo extends F0FTable
         <section xml:id="foftable-behaviors-introduction">
           <title>Introduction</title>
 
-          <para>Table Behaviors are an handy way to alter the workflow of a
+          <para>Tables can implement complex, reusable functionality using
+          behaviours. Table Behaviors are an handy way to alter the workflow of a
           F0FTable. It's based upon the standard Joomla Event system.</para>
 
-          <para>Before and After certain actions, the table triggers an
+          <para>Before and After certain actions (<classname>onBefore*</classname>
+          / <classname>onAfter*</classname>) the table triggers an
           "event" which is propagated to each of the registered behaviors for
           that table. They can then, by registering to these events, alter the
           way the action itself is performed.</para>
@@ -2253,7 +2315,10 @@ class FoobarTableFoo extends F0FTable
           created.</para>
 
           <para>FOF already provides a list of common behaviors, that can be
-          used by any F0FTable object.</para>
+          used by any F0FTable object. The bundled behaviour classes are currently
+          located inside FOF's <filename>table/behavior</filename> directory.
+          By default, only the <filename>assets</filename> and
+          <filename>tags</filename> behaviour are being loaded</para>
         </section>
 
         <section xml:id="foftable-behaviors-standard">
@@ -2267,6 +2332,20 @@ class FoobarTableFoo extends F0FTable
                 <para>This behavior (added by default by FOF) manages the
                 assets for a resource if the asset_id field (or an alias for
                 it) is set for the table</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>contenthistory</term>
+
+              <listitem>
+                <para>This behavior manages the content history related to the
+                current resource</para>
+                
+                <important>
+                  <para>This behavior requires a parameter <code>save_history</code>
+                  on your component parameters <filename>config.xml</filename>.</para>
+                </important>
               </listitem>
             </varlistentry>
 
@@ -2285,7 +2364,7 @@ class FoobarTableFoo extends F0FTable
         <section xml:id="foftable-behaviors-add">
           <title>Add an existing Behavior to a Table</title>
 
-          <para>There are 4 ways to add a behavior to a table:</para>
+          <para>There are 5 ways to add a behavior to a table:</para>
 
           <itemizedlist>
             <listitem>
@@ -2341,6 +2420,19 @@ class FoobarTableFoo extends F0FTable
 
 }</programlisting>
             </listitem>
+
+            <listitem>
+              <para>Adding it on the view inside <filename>fof.xml</filename>:</para>
+
+              <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fof&gt;
+    &lt;common&gt;
+        &lt;table name="todo"&gt;
+            &lt;behaviors&gt;tags&lt;/behaviors&gt;
+        &lt;/table&gt;
+    &lt;/common&gt;
+&lt;/fof&gt;</programlisting>
+            </listitem>
           </itemizedlist>
         </section>
 
@@ -2351,22 +2443,25 @@ class FoobarTableFoo extends F0FTable
           important how you name it, because FOF will search for your
           behaviors based on their name.</para>
 
-          <para>If you want to add a <replaceable>foobar</replaceable>
+          <para>If you want to add a <replaceable>bar</replaceable>
           behavior, FOF will search for it in the following order:</para>
 
           <itemizedlist>
             <listitem>
-              <para>First look for ComponentnameTableViewnameBehaviorName (ie:
-              FoobarTableTodosFoobar)</para>
+              <para>First look for <classname>ComponentnameTableViewnameBehaviorName</classname>
+              (ie: <classname>FoobarTableTodosBar</classname>)</para>
+
+              <para>Caution, the <code>Viewname</code> part MUST be singular.</para>
             </listitem>
 
             <listitem>
-              <para>Then look for ComponentnameTableBehaviorName (ie:
-              FoobarTableFoobar)</para>
+              <para>Then look for <classname>ComponentnameTableBehaviorName</classname>
+              (ie: <classname>FoobarTableBar</classname>)</para>
             </listitem>
 
             <listitem>
-              <para>Then look for F0FTableBehaviorFoobar</para>
+              <para>Then look for <classname>F0FTableBehaviorBehaviorName</classname>
+              (ie: <classname>F0FTableBehaviorBar</classname>)</para>
             </listitem>
           </itemizedlist>
 
@@ -2376,7 +2471,14 @@ class FoobarTableFoo extends F0FTable
           <para>It's also possible to override already existing behaviors, by
           naming them correctly (ie: you can override the <code>tags</code>
           behavior by creating a new class called
-          FoobarTableehaviorTags).</para>
+          <classname>FoobarTableBehaviorTags</classname>).</para>
+
+          <important>
+            <para>The behaviors are not automatically loaded, so you need
+            to provide your own autoloader or simply load the classes in the
+            constructor of your Table before calling <code>parent::__construct(…)</code>
+            .</para>
+          </important>
         </section>
 
         <section xml:id="foftable-behaviors-available">
@@ -7085,6 +7187,14 @@ echo $viewTemplate;
             encouraged.</para>
           </section>
 
+          <section xml:id="filterdate">
+            <title>filterdate</title>
+
+            <para>This is the same as fielddate but no header is
+            rendered. Only the filtering widget is rendered. This header field
+            type only works on Joomla! 3.x and later.</para>
+          </section>
+
           <section xml:id="filtersearchable">
             <title>filtersearchable</title>
 
@@ -7395,6 +7505,17 @@ echo $viewTemplate;
               </listitem>
 
               <listitem>
+                <para><emphasis role="strong">url</emphasis> URL template
+                for each element (use [ITEM:ID] as a placeholder for the item
+                id) (default '')</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis role="strong">htmlelement</emphasis> The
+                HTML used tag, allowed: button, a (default 'button')</para>
+              </listitem>
+
+              <listitem>
                 <para><emphasis role="strong">text</emphasis> Button text
                 value; this is a language string that will be fed to
                 JText::_() for translation</para>
@@ -7656,6 +7777,25 @@ echo $viewTemplate;
                 Javascript event</para>
               </listitem>
             </itemizedlist>
+          </section>
+
+          <section xml:id="groupedbutton">
+            <title>groupedbutton</title>
+
+            <para>This will display a group of button.</para>
+
+            <para>You can set the following attributes:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><emphasis role="strong">class</emphasis> CSS class
+                (default '')</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>This element supports sub-elements organised in
+            <literal>&lt;button&gt;</literal> tags. For more information
+            please consult the <literal>button</literal> element.</para>
           </section>
 
           <section xml:id="groupedlist">
@@ -8109,6 +8249,36 @@ echo $viewTemplate;
             We recommend placing this field first on your form, to respect
             Joomla! 3.0 and later's JUI (Joomla! User Interface)
             guidelines.</para>
+
+            <para>You can set the following attributes:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><emphasis role="strong">class</emphasis> CSS
+                class</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis role="strong">readonly</emphasis> Is this a
+                read-only field?</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis role="strong">disabled</emphasis> Is this a
+                disabled form element?</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis role="strong">onchange</emphasis> The onChange
+                Javascript event</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis role="strong">ordertitle</emphasis> The field name
+                used to display the options title (if not set it will use the magic
+                <literal>title</literal> field)</para>
+              </listitem>
+            </itemizedlist>
           </section>
 
           <section xml:id="password">
@@ -8630,7 +8800,7 @@ echo $viewTemplate;
       achieve this, simply override the table class for your table, with the
       following method:</para>
 
-      <programlisting language="php">protected function onBeforeStore($updateNulls)
+      <programlisting language="php">public function check()
 {
     $slug           = $this-&gt;getColumnAlias('slug');
     $this-&gt;setColumnAlias('title', 'lastname'); // this is needed to trigger the unicity check
@@ -8639,7 +8809,7 @@ echo $viewTemplate;
         $this-&gt;$slug = !$this-&gt;firstname ? $this-&gt;lastname : $this-&gt;firstname .' '. $this-&gt;lastname;
         $this-&gt;$slug = F0FStringUtils::toSlug($this-&gt;$slug);
     }
-    return parent::onBeforeStore($updateNulls);
+    return parent::check();
 }
 </programlisting>
     </section>

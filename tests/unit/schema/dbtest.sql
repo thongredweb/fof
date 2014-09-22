@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `jos_foftest_groups`(
 DROP TABLE IF EXISTS `jos_foftest_parts_groups`;
 CREATE TABLE IF NOT EXISTS `jos_foftest_parts_groups`(
   `foftest_group_id` INT NOT NULL ,
-  `foftest_part_id` INT NOT NULL 
+  `foftest_part_id` INT NOT NULL
 );
 
 -- Table without any "special" column (ordering, hits etc etc)
@@ -114,3 +114,31 @@ CREATE TABLE IF NOT EXISTS `jos_foftest_bares` (
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`foftest_bare_id`)
 );
+
+-- Table for nested sets
+DROP TABLE IF EXISTS `jos_foftest_nestedsets`;
+CREATE TABLE `jos_foftest_nestedsets` (
+  `foftest_nestedset_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `slug` varchar(255) NOT NULL DEFAULT '',
+  `lft` int(11) DEFAULT NULL,
+  `rgt` int(11) DEFAULT NULL,
+  `hash` char(40) DEFAULT NULL,
+  PRIMARY KEY (`foftest_nestedset_id`),
+  KEY `lft` (`lft`),
+  KEY `rgt` (`rgt`),
+  KEY `lft_2` (`lft`,`rgt`),
+  KEY `char` (`hash`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `jos_foftest_nestedbares`;
+CREATE TABLE `jos_foftest_nestedbares` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `lft` int(11) DEFAULT NULL,
+  `rgt` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lft` (`lft`),
+  KEY `rgt` (`rgt`),
+  KEY `lft_2` (`lft`,`rgt`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
