@@ -1,0 +1,8 @@
+[submodule "Tests/environments/3.4"]
+	path = Tests/environments/3.4
+	url = https://github.com/joomla/joomla-cms.git
+	branch = staging
+[submodule "Tests/environments/3.5-dev"]
+	path = Tests/environments/3.5-dev
+	url = https://github.com/joomla/joomla-cms.git
+	branch = 3.5-dev

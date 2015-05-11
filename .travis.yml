@@ -1,33 +1,47 @@
 language: php
 php:
+  - 7.0
+  - 5.6
   - 5.5
   - 5.4
   - 5.3
+  - hhvm
+
+matrix:
+  allow_failures:
+     - php: hhvm
+     - php: 7.0
+     - php: 5.6
+       env: JVERSION_TEST=3.5-dev
+     - php: 5.5
+       env: JVERSION_TEST=3.5-dev
+     - php: 5.4
+       env: JVERSION_TEST=3.5-dev
+     - php: 5.3
+       env: JVERSION_TEST=3.5-dev
 
 env:
-  - JVERSION_TEST=3.2
+    - JVERSION_TEST=3.4
+    - JVERSION_TEST=3.5-dev
 
 branches:
   only:
     - development
 
 install:
+  - composer selfupdate
   - composer update
 
 before_script:
-  - pear channel-discover pear.phpunit.de
-  - pear install phpunit/DbUnit
-  - mysql -e 'create database fof_test;'
-  - if [[ "$JVERSION_TEST" == "2.5" ]]; then cp tests/environments/2.5/joomla.sql joomla.sql; fi
-  - if [[ "$JVERSION_TEST" == "3.1" ]]; then cp tests/environments/3.1/joomla.sql joomla.sql; fi
-  - if [[ "$JVERSION_TEST" == "3.2" ]]; then cp tests/environments/3.2/joomla.sql joomla.sql; fi
-  - mysql fof_test < joomla.sql
+  - if [[ "$DB" == "mysql" ]]; then mysql -e 'create database fof_test;'; fi
+  - if [[ "$DB" == "mysql" ]]; then cp Tests/environments/"$JVERSION_TEST"/installation/sql/mysql/joomla.sql joomla.sql; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql fof_test < joomla.sql; fi
   - cp build/templates/include.php fof/include.php
 
 after_script:
-  - cat tests/debug.txt
+  - cat Tests/debug.txt
 
 notifications:
   email: false
 
-script: phpunit --bootstrap=tests/unit/bootstrap.php tests
+script: php vendor/phpunit/phpunit/phpunit --bootstrap=Tests/bootstrap.php Tests

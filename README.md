@@ -195,7 +195,3 @@ These links are listed as a courtesy only. Akeeba Limited is not responsible for
 
 Submit a PR (see instructions above) and edit this README.md (scroll down to this very section). 
 
-### Links
-
-Technical Notes [https://southlasalle.atlassian.net/wiki/display/technicalnotes/Framework+on+Framework]
-

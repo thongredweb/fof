@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rootNotImportant>
+    <view name="*">
+        <taskmap>
+            <task name="show">browse</task>
+        </taskmap>
+        <acl>
+            <task name="browse">foobar.something</task>
+        </acl>
+        <toolbar title="COM_FOOBAR_TOOLBAR_GENERIC" task="browse">
+            <button type="apply" alt="Apply" />
+            <button type="cancel" />
+        </toolbar>
+        <config>
+            <option name="behaviors">filter,access</option>
+        </config>
+    </view>
+    <view name="Item">
+        <taskmap>
+            <task name="list">browse</task>
+        </taskmap>
+        <acl>
+            <task name="dosomething" />
+            <task name="somethingelse">core.manage</task>
+        </acl>
+        <config>
+            <option name="autoRouting">3</option>
+        </config>
+        <toolbar title="COM_FOOBAR_TOOLBAR_ITEM" task="edit">
+            <button type="save" />
+            <button type="saveclose" />
+            <button type="savenew" />
+            <button type="cancel" />
+        </toolbar>
+    </view>
+    <view name="Bad">
+        <taskmap>
+            <task name="show">show</task>
+            <task name="gimme">read</task>
+        </taskmap>
+        <acl>
+            <task name="browse">kot</task>
+            <task name="show">foo.bar</task>
+        </acl>
+        <config>
+            <option name="behaviors" />
+        </config>
+        <toolbar title="COM_FOOBAR_TOOLBAR_GENERIC" task="browse">
+            <button type="other"/>
+        </toolbar>
+    </view>
+    <view name="Baz">
+        <taskmap>
+            <task name="gimme">read</task>
+        </taskmap>
+    </view>
+</rootNotImportant>

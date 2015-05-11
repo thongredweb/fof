@@ -1,26 +1,30 @@
 <?php
 /**
- *  @package     FrameworkOnFramework
- *  @subpackage  include
- *  @copyright   Copyright (c)2010-2014 Nicholas K. Dionysopoulos
- *  @license     GNU General Public License version 2, or later
- *
- *  Initializes F0F
+ * @package     FOF
+ * @copyright   2010-2015 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @license     GNU GPL version 2 or later
  */
 
-defined('_JEXEC') or die();
+// Do not put the JEXEC or die check on this file (necessary omission for testing)
 
-if (!defined('F0F_INCLUDED'))
+if (!class_exists('FOF30\\Autoloader\\Autoloader'))
 {
-    define('F0F_INCLUDED', '##VERSION##');
+	// Register utility functions
+	require_once __DIR__ . '/Utils/helpers.php';
+	// Register the FOF autoloader
+	require_once __DIR__ . '/Autoloader/Autoloader.php';
+}
 
-	// Register the F0F autoloader
-    require_once __DIR__ . '/autoloader/fof.php';
-	F0FAutoloaderFof::init();
+if (!defined('FOF30_INCLUDED'))
+{
+	define('FOF30_INCLUDED', '##VERSION##');
+
+	JFactory::getLanguage()->load('lib_fof30', JPATH_SITE, 'en-GB', true);
+	JFactory::getLanguage()->load('lib_fof30', JPATH_SITE, null, true);
 
 	// Register a debug log
-	if (defined('JDEBUG') && JDEBUG)
+	if (defined('JDEBUG') && JDEBUG && class_exists('JLog'))
 	{
-		F0FPlatform::getInstance()->logAddLogger('fof.log.php');
+		\JLog::addLogger(array('text_file' => 'fof.log.php'), \JLog::ALL, array('fof'));
 	}
 }

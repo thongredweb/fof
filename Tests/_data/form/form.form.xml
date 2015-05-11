@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset
+            name="items"
+            label="COM_AKEEBASUBS_COUPON_BASIC_TITLE"
+            class="span6">
+
+        <field
+            name="title"
+            type="Text"
+            label="COM_AKEEBASUBS_COUPON_FIELD_TITLE"
+            description="COM_AKEEBASUBS_APICOUPONS_FIELD_TITLE_DESC"
+		/>
+
+		<field
+            name="key"
+            type="Text"
+			label="COM_AKEEBASUBS_APICOUPONS_FIELD_KEY"
+            description="COM_AKEEBASUBS_APICOUPONS_FIELD_KEY_DESC"
+		/>
+
+		<field
+            name="password"
+            type="Text"
+            label="COM_AKEEBASUBS_APICOUPONS_FIELD_PWD"
+            description="COM_AKEEBASUBS_APICOUPONS_FIELD_PWD_DESC"
+        />
+
+        <field
+            name="type"
+            type="GenericList"
+            label="COM_AKEEBASUBS_COUPON_FIELD_TYPE">
+            <option value="value">COM_AKEEBASUBS_COUPON_TYPE_VALUE</option>
+            <option value="percent">COM_AKEEBASUBS_COUPON_TYPE_PERCENT</option>
+        </field>
+
+        <field
+            name="value"
+            type="text"
+            label="COM_AKEEBASUBS_COUPON_FIELD_VALUE"
+        />
+
+		<field
+            name="enabled"
+            type="Published"
+            label="JPUBLISHED"
+        />
+	</fieldset>
+</form>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fof>
+  <common>
+    <view name="Foobars">
+      <taskmap>
+        <task name="browse">read</task>
+      </taskmap>
+    </view>
+  </common>
+</fof>

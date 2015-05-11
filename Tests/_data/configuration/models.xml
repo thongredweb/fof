@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rootNotImportant>
+    <!-- Model options common to all tables -->
+    <model name="*">
+        <field name="locked_by">checked_out</field>
+        <field name="locked_on">checked_out_time</field>
+        <behaviors>ping,pong</behaviors>
+    </model>
+    <!-- Table options for a specific table -->
+    <model name="Orders">
+        <field name="enabled">published</field>
+        <relation type="children" name="items" />
+        <relation type="multiple"
+                  name="transactions"
+                  localKey="foobar_order_id"
+                  ourPivotKey="foobar_order_id"
+                  theirPivotKey="foobar_transaction_id"
+                  remoteKey="foobar_transaction_id"
+                  pivotTable="#__foobar_orders_transactions"
+                  default="true" />
+        <relation type="child" name="client" tableClass="Fakeapp\Model\Users" />
+        <behaviors>foo,bar,baz</behaviors>
+    </model>
+    <model name="Users">
+        <tablealias>folks</tablealias>
+        <field name="locked_by">locked</field>
+        <field name="locked_on">locked_on</field>
+        <behaviors merge="1">foo,bar,baz</behaviors>
+    </model>
+</rootNotImportant>

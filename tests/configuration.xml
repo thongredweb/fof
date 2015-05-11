@@ -1,7 +1,0 @@
-<phpunit bootstrap="unit/bootstrap.php" colors="true">
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="false">
-      <directory suffix=".php">../fof/</directory>
-    </whitelist>
-  </filter>
-</phpunit>

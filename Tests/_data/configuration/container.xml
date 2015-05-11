@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rootNotImportant>
+    <container>
+        <option name="some">thing</option>
+        <option name="foo">bar</option>
+        <not-an-option name="nope">NOPE</not-an-option>
+    </container>
+</rootNotImportant>

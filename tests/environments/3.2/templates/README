@@ -1,2 +1,0 @@
-In order to test with TRAVIS, we MUST have the "system" template, otherwise in Joomla 3.2
-we will get an exception since it is checking if the file really exists.

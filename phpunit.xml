@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="Tests/bootstrap.php"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    checkForUnintentionallyCoveredCode="false"
+    beStrictAboutOutputDuringTests="true"
+    beStrictAboutTestSize="true"
+    colors="true"
+>
+	<testsuites>
+		<testsuite name="FOF Unit Tests">
+			<directory>Tests</directory>
+		</testsuite>
+	</testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">fof</directory>
+            <exclude>
+                <file>fof/include.php</file>
+                <directory suffix=".php">fof/Autoloader</directory>
+                <file>fof/Download/Adapter/AbstractAdapter.php</file>
+                <file>fof/Event/Observable.php</file>
+                <directory suffix=".php">fof/Less</directory>
+                <directory suffix=".php">fof/Platform/Base</directory>
+                <directory suffix=".php">fof/Pimple</directory>
+                <file>fof/Utils/helpers.php</file>
+                <file>fof/Utils/CacheCleaner.php</file>
+                <file>fof/Utils/InstallScript.php</file>
+                <file>fof/Utils/Phpfunc.php</file>
+
+                <directory suffix=".php">Tests</directory>
+                <directory suffix=".php">vendor</directory>
+                <directory suffix=".php">strapper</directory>
+                <directory suffix=".php">strapper-sources</directory>
+
+                <directory suffix=".php">fof2</directory>
+                <directory suffix=".php">tests-old</directory>
+
+                <!-- Exclude packages that are impossible to test -->
+                <directory suffix=".php">fof/Form</directory>
+                <directory suffix=".php">fof/Render</directory>
+                <directory suffix=".php">fof/Update</directory>
+
+                <!-- Exclude interfaces from code coverage -->
+                <file>fof/Configuration/Domain/DomainInterface.php</file>
+                <file>fof/Download/DownloadInterface.php</file>
+                <file>fof/Factory/FactoryInterface.php</file>
+                <file>fof/Factory/Scaffolding/ErectorInterface.php</file>
+                <file>fof/Form/FieldInterface.php</file>
+                <file>fof/Form/HeaderInterface.php</file>
+                <file>fof/Hal/Render/RenderInterface.php</file>
+                <file>fof/Platform/Joomla/Filesystem.php</file>
+                <file>fof/Platform/FilesystemInterface.php</file>
+                <file>fof/Platform/PlatformInterface.php</file>
+                <file>fof/View/DataView/DataViewInterface.php</file>
+
+                <!-- Exclude exceptions from code coverage -->
+                <directory suffix=".php">fof/Container/Exception</directory>
+                <directory suffix=".php">fof/Controller/Exception</directory>
+                <directory suffix=".php">fof/Dispatcher/Exception</directory>
+                <directory suffix=".php">fof/Download/Exception</directory>
+                <directory suffix=".php">fof/Factory/Exception</directory>
+                <directory suffix=".php">fof/Form/Exception</directory>
+                <directory suffix=".php">fof/Hal/Exception</directory>
+                <directory suffix=".php">fof/Model/Exception</directory>
+                <directory suffix=".php">fof/Model/DataModel/Exception</directory>
+                <directory suffix=".php">fof/Model/DataModel/Filter/Exception</directory>
+                <directory suffix=".php">fof/Model/DataModel/Relation/Exception</directory>
+                <directory suffix=".php">fof/Toolbar/Exception</directory>
+                <directory suffix=".php">fof/View/Exception</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

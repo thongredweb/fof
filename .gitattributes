@@ -1,0 +1,6 @@
+assets/         export-ignore
+build/          export-ignore
+documentation/  export-ignore
+release/        export-ignore
+Tests/          export-ignore
+vendor/         export-ignore
